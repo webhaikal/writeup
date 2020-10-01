@@ -14,6 +14,13 @@ class WriteupQueryMiddleware
 
     public function handle($request, Closure $next)
     {
+		// Check if we should skip this route
+		foreach(config('writeup.except_routes') as $route) {
+			if($request->routeIs($route) || $route == $request->path()) {
+				return next($request);
+			}
+		}
+		
         try {
             $data = [];
             DB::listen(function ($query) use ($request, $data) {

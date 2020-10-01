@@ -29,6 +29,14 @@ return [
         'method' => true,
         'params' => true
     ],
+	'except_routes' => [
+		/**
+		 * Example routes
+		 *
+		 * 'contact',
+		 * 'users',
+		 */
+	],
     'response_log' => [
         'enable' => env('WRITEUP_RESPONSE_LOG', true),
         'time' => true // Time required to execute a request

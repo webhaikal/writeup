@@ -13,6 +13,13 @@ class WriteupRequestMiddleware
     public function handle($request, Closure $next)
     {
         $data = [];
+		
+		// Check if we should skip this route
+		foreach(config('writeup.except_routes') as $route) {
+			if($request->routeIs($route) || $route == $request->path()) {
+				return next($request);
+			}
+		}
 
         try {
             if (config('writeup.request_log.url')) {
